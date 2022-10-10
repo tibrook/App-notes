@@ -3,13 +3,21 @@ import "./Note.css";
 import delIcon from "./remove.svg";
 import edit from "./edit.svg";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 const Note = (props) => {
   const dispatch = useDispatch();
 
-  const deleteNote = (id) => {
+  const deleteNote = () => {
     dispatch({
       type: "DELETENOTE",
       payload: props.id,
+    });
+  };
+
+  const modifyNote = () => {
+    dispatch({
+      type: "VISUALIZENOTE",
+      payload: props,
     });
   };
   return (
@@ -22,9 +30,11 @@ const Note = (props) => {
         <button onClick={deleteNote}>
           <img src={delIcon} alt="delete icon" />
         </button>
-        <button>
-          <img src={edit} alt="" />
-        </button>
+        <Link to="/edit">
+          <button onClick={modifyNote}>
+            <img src={edit} alt="" />
+          </button>
+        </Link>
       </div>
     </li>
   );
